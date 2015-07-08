@@ -1,0 +1,10 @@
+
+Olá <?php echo $this->nome;?>
+
+<br>
+<br>
+
+<p>
+	Esse email tem o objetivo de ativar sua conta para confirmar seu
+	cadastro em nosso sistema <br>
+    para ativar sua conta acesso: http://<?php echo $this->url('acplouser-activate', array('key'=> $this->activationkey))?>

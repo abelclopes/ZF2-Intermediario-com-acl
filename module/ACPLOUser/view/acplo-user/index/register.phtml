@@ -1,0 +1,64 @@
+
+<div class="row">
+	<div id="page-logo">
+		<!-- 		<img alt="logo" class="img-responsive" src="img/logos/logo-red.png"> -->
+	</div>
+</div>
+<div class="row">
+	<div class=" col-lg-4"></div>
+	<div class=" col-lg-4">
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="panel-title">
+					<h3>
+						<i class="glyphicon glyphicon-log-in"></i> <?php echo 'Register'?></h3>
+				</div>
+			</div>
+			<div class="panel-body">
+    
+	           <div class=" col-lg-12">
+<?php if($this->messages): ?>
+<p><?php echo $this->messages[0]; ?></p>
+<?php else:?>
+
+<?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('acplouser-register', array(
+        'controller' => 'index',
+        'action' => 'register'
+    )));
+    $form->prepare();
+    
+    echo $this->form()->openTag($form);
+    // echo $this->formcollection($form);
+    foreach ($form as $element) :
+        ?>
+            <div class="form-group">
+            	<?php echo $this->formLabel($element);?></label>
+    			<div class="col-lg-10">
+    		      	<div class="input-group">
+                    <?php echo $this->formElement($element);?>
+                    <?php  echo $this->formElementErrors($element);?>
+                    </div>
+    			</div>
+    		</div>
+	 <?php
+    endforeach
+    ;
+    echo $this->form()->closeTag();
+    
+    ?>
+
+
+<?php endif;?>
+                </div>
+			</div>
+			<div class="panel-footer">
+				<p></p>
+			</div>
+		</div>
+
+	</div>
+	<div class=" col-lg-4"></div>
+</div>
+</div>
