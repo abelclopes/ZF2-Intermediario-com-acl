@@ -43,7 +43,7 @@ class IndexController extends AbstractActionController
                     $fm = $this->flashMessenger()
                         ->setNamespace('ACPLOUser')
                         ->addMessage("Usuário cadastrado com sucesso");
-//                     $this->sendMail($request->getPost()->toArray());
+                    // $this->sendMail($request->getPost()->toArray());
                 }
                 
                 return $this->redirect()->toRoute('acplouser-register');
@@ -64,48 +64,15 @@ class IndexController extends AbstractActionController
     {
         $activationKey = $this->params()->fromRoute('key');
         
-        $repository = $this->getEm()->getRepository('ACPLOUser\Service\User');
-        $user = $repository->findBy(array(
-            'id' => 32
-        ));
+        $userService = $this->getServiceLocator()->get('ACPLOUser\Service\User');
+        $result = $userService->activate($activationKey);
+        
         if ($result)
             return new ViewModel(array(
                 'user' => $result
             ));
         else
             return new ViewModel();
-    }
-
-    public function sendMail($post)
-    {
-        $repository = $this->getEm()->getRepository('ACPLOUser\Entity\User');
-        $user = $repository->findBy(array(
-            'email' => $post['email']
-        ));
-        
-        var_dump($user[0]->getActivationKey());
-        die();
-        $transport = $this->getServiceLocator()->get('ACPLOUser\Mail\Transport');
-        $message = new Message();
-        $this->getRequest()->getServer(); // Server vars
-        
-        $message->addTo($user[0]->getEmail())
-            ->addFrom('adzf2.project@gmail.com')
-            ->setSubject('Vai te fude consegui enviar a porra do email kkkk!')
-            ->
-        // ->setBody("Please, click the link to confirm your registration => " . $this->getRequest()
-        // ->getServer('HTTP_ORIGIN') . $this->url()
-        setBody("Please, click the link to confirm your registration => http://" . $this->getRequest()
-            ->getServer('HTTP_HOST') . $this->url()
-            ->fromRoute('acplouser-activate', array(
-            'controller' => 'index',
-            'action' => 'activate',
-            'id' => $user[0]->getActivationKey()
-        )));
-        
-        // $this->acploUrl()->from('usuario/confirm-email',['id'=>$user->getUsrRegistrationToken()], true)
-        
-        $transport->send($message);
     }
 
     /*

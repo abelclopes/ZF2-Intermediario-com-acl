@@ -13,9 +13,9 @@ return array(
                         'controller' => 'Index',
                         'action' => 'register'
                     )
-                )                
+                )
             ),
-            'acplouser-activate'=>array(
+            'acplouser-activate' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/register/activate[/:key]',
@@ -23,6 +23,50 @@ return array(
                         '__NAMESPACE__' => 'ACPLOUser\Controller',
                         'controller' => 'Index',
                         'action' => 'activate'
+                    )
+                )
+            ),
+            'acplouser-admin' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'ACPLOUser\Controller',
+                        'controller' => 'Users',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'ACPLOUser\Controller',
+                                'controller' => 'users'
+                            )
+                        )
+                    ),
+                    'paginator' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:controller[/page/:page]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'ACPLOUser\Controller',
+                                'controller' => 'users'
+                            )
+                        )
                     )
                 )
             )

@@ -12,6 +12,6 @@ class UserRepository extends EntityRepository
          $user = $this->findOneBy(array(
             'activationKey' => $key
         ));
-         return $user->getId();
+         return $user;
     }
 }

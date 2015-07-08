@@ -26,9 +26,7 @@ class User extends AbstractService
     public function insert(array $data) {
         $entity = parent::insert($data);
 
-
-        $dataEmail = array('nome'=>$data['nome'],'activationKey'=>$entity->getActivationKey());
-
+        $dataEmail = array('nome'=>$data['nome'],'activationKey'=> $entity->getActivationKey());
 
         if($entity)
         {
@@ -47,7 +45,7 @@ class User extends AbstractService
         $repo = $this->em->getRepository("ACPLOUser\\Entity\\User");
 
         $user = $repo->findOneByActivationKey($key);
-
+print_r($user);
         if($user && !$user->getActive())
         {
             $user->setActive(true);
