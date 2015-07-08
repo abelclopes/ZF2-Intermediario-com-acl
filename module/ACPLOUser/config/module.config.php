@@ -74,7 +74,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'ACPLOUser\Controller\Index' => 'ACPLOUser\Controller\IndexController'
+            'ACPLOUser\Controller\Index' => 'ACPLOUser\Controller\IndexController',
+            'ACPLOUser\Controller\Users' => 'ACPLOUser\Controller\UsersController',
+            'ACPLOUser\Controller\Auth' => 'ACPLOUser\Controller\AuthController',
         )
     ),
     'view_manager' => array(
